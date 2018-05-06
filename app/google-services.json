@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "10918423929",
+    "firebase_url": "https://egps-b3d4c.firebaseio.com",
+    "project_id": "egps-b3d4c",
+    "storage_bucket": "egps-b3d4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10918423929:android:326635099408879a",
+        "android_client_info": {
+          "package_name": "com.example.jhonfregom.egps"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10918423929-58jngi2a1ju9m97ico1jf8j6v8kf3auk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDWnk7vfa_tOGCGMrkWQfx091Jt_amaYrs"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

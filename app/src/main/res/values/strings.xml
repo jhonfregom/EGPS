@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">EGPS</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="ingresar">INGRESAR</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="salir">SALIR</string>
+    <string name="mi_ubicaci_n">Mi Ubicación</string>
+    <string name="aqui_va_mi_ubicaci_n">Aqui va mi ubicación</string>
+    <string name="ver_mapa">Ver Mapa</string>
+    <string name="usuario">usuario</string>
+    <string name="registrar">registrar</string>
+    <string name="name">name</string>
+    <string name="lastname">lastname</string>
+    <string name="detener">detener</string>
+    <string name="iniciar">INICIAR</string>
+    <string name="guardar">guardar</string>
+</resources>

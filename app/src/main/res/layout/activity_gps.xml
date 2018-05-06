@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.jhonfregom.egps.GPSActivity">
+
+    <TextView
+        android:id="@+id/txtubicacion2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aqui_va_mi_ubicaci_n"
+        android:textAlignment="center" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark"
+            android:cursorVisible="false"
+            android:text="@string/salir" />
+
+
+</RelativeLayout>
+
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/detener"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginEnd="78dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/detener" />
+
+        <Button
+            android:id="@+id/inicio"
+            android:layout_width="116dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="37dp"
+            android:background="@color/colorPrimaryDark"
+            android:onClick="onClick"
+            android:text="@string/iniciar" />
+
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/guardar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/guardar" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/mi_ubicaci_n"
+        android:textAlignment="center"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txtubicacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/aqui_va_mi_ubicaci_n"
+        android:textAlignment="center" />
+
+    <Button
+        android:id="@+id/verMapa"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:text="@string/ver_mapa" />
+
+
+</LinearLayout>
