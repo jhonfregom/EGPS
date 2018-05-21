@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button mregisterBtn;
     private ProgressDialog progressDialog;
     private FirebaseAuth.AuthStateListener mAuthListener;
+    private TextView forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
         mPasswordField = (EditText) findViewById(R.id.password);
         mLoginBtn = (Button) findViewById(R.id.login);
         mregisterBtn =(Button)findViewById(R.id.registrar);
-
+        forgotPassword = (TextView)findViewById(R.id.tvForgotPassword);
         mLoginBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 if (firebaseAuth.getCurrentUser() != null) {
-                    Toast.makeText(MainActivity.this, "Now you are logged In " + firebaseAuth.getCurrentUser().getUid(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(MainActivity.this, "Bienvenido " + firebaseAuth.getCurrentUser().getEmail(), Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(MainActivity.this, GPSActivity.class);
                     startActivity(intent);
                     finish();
@@ -66,7 +68,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         };
+        forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(MainActivity.this, PasswordActivity.class));
+            }
+        });
     }
+
+
 
     @Override
     protected void onStart() {
@@ -79,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
         String password = mPasswordField.getText().toString().trim();
 
         if (!TextUtils.isEmpty(email) && !TextUtils.isEmpty(password)) {
-            progressDialog.setMessage("Loging , please wait");
+            progressDialog.setMessage("Ingresando , Por favor espera");
             progressDialog.show();
             mAuth.signInWithEmailAndPassword(email, password)
                     .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
@@ -87,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Login succesful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Iingreso Satisfactorio", Toast.LENGTH_SHORT).show();
                             } else
                                 Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

@@ -15,4 +15,19 @@
     <string name="detener">detener</string>
     <string name="iniciar">INICIAR</string>
     <string name="guardar">guardar</string>
+    <string name="ubicacion_final">ubicacion final</string>
+    <string name="ubicacion_inicial">ubicacion inicial</string>
+    <string name="genero">GENERO</string>
+    <string name="edad">EDAD</string>
+    <string name="apellido">APELLIDO</string>
+    <string name="nombre">NOMBRE</string>
+
+    <!-- errores -->
+
+    <string name="error_campo_obligatorio">Campo Obligatorio</string>
+    <string name="error_campo_numerico">Campo numérico</string>
+    <string name="error_valor_mayor_a_6">Contraseña minimo de 6 digitos</string>
+    <string name="error_valor_entre_0_y_99">Error edad entre 0 y 99 años</string>
+    <string name="contrasenas_no_coinciden">Contraseñas no coinciden</string>
+
 </resources>

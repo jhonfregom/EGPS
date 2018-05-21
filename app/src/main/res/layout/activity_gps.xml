@@ -7,21 +7,16 @@
     android:orientation="vertical"
     tools:context="com.example.jhonfregom.egps.GPSActivity">
 
-    <TextView
-        android:id="@+id/txtubicacion2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/aqui_va_mi_ubicaci_n"
-        android:textAlignment="center" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <Button
             android:id="@+id/logout"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="26dp"
             android:layout_alignParentEnd="true"
             android:layout_alignParentTop="true"
             android:background="@color/colorPrimaryDark"
@@ -29,42 +24,57 @@
             android:text="@string/salir" />
 
 
-</RelativeLayout>
-
-
+    </RelativeLayout>
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="65dp">
 
         <Button
             android:id="@+id/detener"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="32dp"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="78dp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="84dp"
             android:background="@color/colorPrimaryDark"
-            android:text="@string/detener" />
+            android:text="DETENER" />
 
         <Button
             android:id="@+id/inicio"
-            android:layout_width="116dp"
-            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
             android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginStart="37dp"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="85dp"
             android:background="@color/colorPrimaryDark"
             android:onClick="onClick"
-            android:text="@string/iniciar" />
+            android:text="@string/iniciar"
+            android:textAppearance="@style/TextAppearance.AppCompat.Widget.ActionBar.Title.Inverse"
+            android:textSize="14sp"
+            android:visibility="visible" />
 
     </RelativeLayout>
+
+    <TextView
+        android:id="@+id/txtubicacion2"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/ubicacion_inicial"
+        android:textAlignment="center" />
+
+    <TextView
+        android:id="@+id/txtubicacion3"
+        android:layout_width="189dp"
+        android:layout_height="wrap_content"
+        android:hint="@string/ubicacion_final"
+        android:textAlignment="center" />
 
     <Button
         android:id="@+id/guardar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="30dp"
         android:background="@color/colorPrimaryDark"
         android:text="@string/guardar" />
 

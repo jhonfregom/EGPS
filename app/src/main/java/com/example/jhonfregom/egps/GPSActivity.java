@@ -9,6 +9,7 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -21,17 +22,27 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
 
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
@@ -42,18 +53,25 @@ import locat.devazt.networking.Response;
 
 public class GPSActivity extends AppCompatActivity implements View.OnClickListener {
     String ubicacion;
-    double latitud, longitud;
     String direccion;
     String ciudad;
+    double longitud, latitud;
     TextView txtubicacion;
     Button verMapa;
-    Button iniciogps, detenergps;
+    Button iniciogps, detenergps, guardargps;
     private Button mLogoutBtn;
     TextView txtubicacion2;
+    TextView txtubicacion3;
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
+    private FirebaseAuth firebaseAuth;
+    private RequestQueue mPosicion;
+    private RequestQueue mPosicionF;
 
     LocationManager locationManager;
     Localizacion local;
     static final int MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION = 1;
+
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -64,17 +82,37 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         mLogoutBtn = (Button) findViewById(R.id.logout);
         iniciogps = (Button) findViewById(R.id.inicio);
         detenergps = (Button) findViewById(R.id.detener);
+        guardargps = (Button) findViewById(R.id.guardar);
         Handler handler = new Handler();
 
         txtubicacion2 = (TextView) findViewById(R.id.txtubicacion2);
+        txtubicacion3 = (TextView) findViewById(R.id.txtubicacion3);
+
+        mPosicion = Volley.newRequestQueue(this);
+        mPosicionF = Volley.newRequestQueue(this);
+
+
+        guardargps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                guardarcoord();
+            }
+        });
 
         iniciogps.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-      //          getCoordenadas();
+                jsonParse();
             }
         });
 
+
+        detenergps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                jsonParseF();
+            }
+        });
 
         mLogoutBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -116,6 +154,49 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+    private void guardarcoord() {
+        final String num = "0.25555";
+        final String mPosicionIni = txtubicacion2.getText().toString().trim();
+        final String mPosicionfin = txtubicacion3.getText().toString().trim();
+        DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+        //    try{
+        mAuth = FirebaseAuth.getInstance();
+        final DatabaseReference databaseReference = mDatabase.child(mAuth.getCurrentUser().getUid());
+
+
+        // Re
+        databaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                Toast.makeText(GPSActivity.this, "Algo Cambio...", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+        databaseReference.child("FUT").setValue(num);
+        databaseReference.child("Posicion Inicial").setValue(mPosicionIni);
+        databaseReference.child("Posicion Final").setValue(mPosicionfin);
+        databaseReference.push();
+
+        /*mAuthListener=new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                if (mAuth.getCurrentUser() != null) {
+                    databaseReference.child("FUT").setValue(num);
+                    databaseReference.child("Posicion Inicial").setValue(mPosicionIni);
+                    databaseReference.child("Posicion Final").setValue(mPosicionfin);
+                    Toast.makeText(GPSActivity.this, "Ubicación grabada", Toast.LENGTH_SHORT).show();
+                } else
+                    Toast.makeText(GPSActivity.this, "Error al grabar", Toast.LENGTH_SHORT).show();
+            }
+        };//}catch(Exception e){
+          //  e.printStackTrace();
+        //}*/
+    }
+
     @Override
     public void onRequestPermissionsResult(
             int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -144,12 +225,12 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
 
     public void setLocation(Location loc) {
         if (loc.getLatitude() != 0.0 && loc.getLongitude() != 0.0) {
-            latitud = loc.getLatitude();
+            this.latitud = loc.getLatitude();
             longitud = loc.getLongitude();
 
             try {
                 Geocoder geocoder = new Geocoder(this, Locale.getDefault());
-                List<Address> direcciones = geocoder.getFromLocation(latitud, longitud, 1);
+                List<Address> direcciones = geocoder.getFromLocation(this.latitud, longitud, 1);
 
                 if (!direcciones.isEmpty()) {
                     Address dir = direcciones.get(0);
@@ -173,21 +254,6 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         this.ubicacion = ubicacion;
     }
 
-    public double getLatitud() {
-        return latitud;
-    }
-
-    public void setLatitud(double latitud) {
-        this.latitud = latitud;
-    }
-
-    public double getLongitud() {
-        return longitud;
-    }
-
-    public void setLongitud(double longitud) {
-        this.longitud = longitud;
-    }
 
     public String getDireccion() {
         return direccion;
@@ -209,9 +275,21 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
     public void onClick(View v) {
 
         Intent i = new Intent(this, MapsActivity.class);
-        i.putExtra("longitud", String.valueOf(longitud));
-        i.putExtra("latitud", String.valueOf(latitud));
+        i.putExtra("latitud", String.valueOf(txtubicacion2.getText().toString().split(",")[0]));
+        i.putExtra("longitud", String.valueOf(txtubicacion2.getText().toString().split(",")[1]));
         i.putExtra("ciudad", ciudad);
+
+
+        double latInicial, latFinal, lonInicial, lonFinal;
+
+        latInicial = Double.parseDouble(txtubicacion2.getText().toString().split(",")[0]);
+        lonInicial = Double.parseDouble(txtubicacion2.getText().toString().split(",")[1]);
+
+        latFinal = Double.parseDouble(txtubicacion3.getText().toString().split(",")[0]);
+        lonFinal = Double.parseDouble(txtubicacion3.getText().toString().split(",")[1]);
+
+        i.putExtra("Inicial", new double[]{latInicial, lonInicial});
+        i.putExtra("Final", new double[]{latFinal, lonFinal});
         startActivity(i);
     }
 
@@ -220,13 +298,74 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         local = new Localizacion();
         local.setGps(this);
     }
+
+
+    private void jsonParse() {
+        //   String url = "http://192.168.43.109/gpio/1";
+        // String url = "http://192.168.0.17/gpio/1";
+        String url = "http://api.myjson.com/bins/p498q";
+
+
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("coordenadas");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject coordi = jsonArray.getJSONObject(i);
+                                String latitud = coordi.getString("latitud");
+                                String longitud = coordi.getString("longitud");
+                                txtubicacion2.append(latitud + "," + longitud + " ");
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+        mPosicion.add(request);
+    }
+
+    private void jsonParseF() {
+        //  String url = "http://192.168.43.109/gpio/1";
+        //   String  url= "https://api.myjson.com/bins/ib6pm";
+        //   String url = "http://192.168.0.17/gpio/1";
+        String url = "https://api.myjson.com/bins/d6tfy";
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                new com.android.volley.Response.Listener<JSONObject>() {
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        try {
+                            JSONArray jsonArray = response.getJSONArray("coordenadas");
+
+                            for (int i = 0; i < jsonArray.length(); i++) {
+                                JSONObject coordf = jsonArray.getJSONObject(i);
+                                String latitud = coordf.getString("latitud");
+                                String longitud = coordf.getString("longitud");
+                                txtubicacion3.append(latitud + "," + longitud + " ");
+
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                error.printStackTrace();
+            }
+        });
+
+
+        mPosicionF.add(request);
+    }
+
 }
-
-
-
-
-
-
-
-
-
