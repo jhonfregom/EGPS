@@ -78,18 +78,27 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         op.title("U. Inicial");
         op.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
         mMap.addMarker(op);
-
+/*
+        double[]medio3 = getIntent().getExtras().getDoubleArray("Medio");
+        MarkerOptions op3 = new MarkerOptions();
+        op3.position(new LatLng(medio3[Integer.parseInt("3.464833")], medio3[Integer.parseInt("-76.530196")]));
+        op3.draggable(true);
+        op3.title("U. Medio");
+        op3.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        mMap.addMarker(op3);
+*/
         // Final
         double[] final2 = getIntent().getExtras().getDoubleArray("Final");
         MarkerOptions op2 = new MarkerOptions();
         op2.position(new LatLng(final2[0], final2[1]));
         op2.draggable(true);
         op2.title("U. Final");
-        op2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED));
+        op2.icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE));
         mMap.addMarker(op2);
 
        mMap.addPolyline(new PolylineOptions().add(new LatLng(inicial[0],inicial[1]),new LatLng(final2[0],final2[1])).width(5).color(Color.RED));
 
+    //   mMap.addPolyline(new PolylineOptions().add(new LatLng(medio3[0],medio3[1]),new LatLng(final2[0],final2[1])).width(5).color(Color.RED));
     }
 
   /* private String getRequestUrl(LatLng inicial, LatLng final2){

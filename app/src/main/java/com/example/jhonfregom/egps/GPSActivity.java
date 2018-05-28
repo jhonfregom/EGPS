@@ -300,14 +300,18 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
 
 
         double latInicial, latFinal, lonInicial, lonFinal;
+   //     String latMedio,lonmedio;
 
         latInicial = Double.parseDouble(txtubicacion2.getText().toString().split(",")[0]);
         lonInicial = Double.parseDouble(txtubicacion2.getText().toString().split(",")[1]);
+
+   //     latMedio = ();
 
         latFinal = Double.parseDouble(txtubicacion3.getText().toString().split(",")[0]);
         lonFinal = Double.parseDouble(txtubicacion3.getText().toString().split(",")[1]);
 
         i.putExtra("Inicial", new double[]{latInicial, lonInicial});
+ //       i.putExtra("Medio",new String[]{"3.464833","-76.530196"});
         i.putExtra("Final", new double[]{latFinal, lonFinal});
         startActivity(i);
     }
@@ -322,7 +326,9 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
     private void jsonParse() {
         //   String url = "http://192.168.43.109/gpio/1";
         // String url = "http://192.168.0.17/gpio/1";
-        String url = "https://api.myjson.com/bins/113ufm";
+
+        String url = "https://api.myjson.com/bins/g9o9e";
+      //  String url = "https://api.myjson.com/bins/113ufm";
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -357,7 +363,7 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         //  String url = "http://192.168.43.109/gpio/1";
         //   String  url= "https://api.myjson.com/bins/ib6pm";
         //   String url = "http://192.168.0.17/gpio/1";
-        String url = "https://api.myjson.com/bins/g9o9e";
+        String url = "https://api.myjson.com/bins/u2oba";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override
