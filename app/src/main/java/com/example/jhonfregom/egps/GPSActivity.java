@@ -2,14 +2,12 @@ package com.example.jhonfregom.egps;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Handler;
 import android.support.annotation.NonNull;
@@ -33,23 +31,14 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.net.URL;
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
-
-import locat.devazt.networking.HttpClient;
-import locat.devazt.networking.OnHttpRequestComplete;
-import locat.devazt.networking.Response;
 
 public class GPSActivity extends AppCompatActivity implements View.OnClickListener {
     String ubicacion;
@@ -58,7 +47,7 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
     double longitud, latitud;
     TextView txtubicacion;
     Button verMapa;
-    Button iniciogps, detenergps, guardargps;
+    Button iniciogps, detenergps, guardargps, mostrarrutas;
     private Button mLogoutBtn;
     TextView txtubicacion2;
     TextView txtubicacion3;
@@ -83,6 +72,7 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         iniciogps = (Button) findViewById(R.id.inicio);
         detenergps = (Button) findViewById(R.id.detener);
         guardargps = (Button) findViewById(R.id.guardar);
+        mostrarrutas = (Button)findViewById(R.id.btnRutas);
         Handler handler = new Handler();
 
         txtubicacion2 = (TextView) findViewById(R.id.txtubicacion2);
@@ -91,6 +81,12 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         mPosicion = Volley.newRequestQueue(this);
         mPosicionF = Volley.newRequestQueue(this);
 
+        mostrarrutas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(GPSActivity.this, MostrarRutas.class));
+            }
+        });
 
         guardargps.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,20 +151,23 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
     }
 
     private void guardarcoord() {
-        final String num = "0.25555";
+        //final String num = "0.25555";
+       // final String ubicacion =
         final String mPosicionIni = txtubicacion2.getText().toString().trim();
         final String mPosicionfin = txtubicacion3.getText().toString().trim();
         DatabaseReference mDatabase = FirebaseDatabase.getInstance().getReference().child("users");
+      //FirebaseDatabase mDatabase = FirebaseDatabase.getInstance();
         //    try{
         mAuth = FirebaseAuth.getInstance();
-        final DatabaseReference databaseReference = mDatabase.child(mAuth.getCurrentUser().getUid());
+        final DatabaseReference databaseReference = mDatabase.child(mAuth.getCurrentUser().getUid()).child("ubicacion").push();
 
+        //final DatabaseReference databaseReference = mDatabase.getReference().child(mAuth.getCurrentUser().getUid()).child("ubicacion");
 
         // Re
         databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Toast.makeText(GPSActivity.this, "Algo Cambio...", Toast.LENGTH_SHORT).show();
+                Toast.makeText(GPSActivity.this, "Ruta grabada", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -176,7 +175,9 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
 
             }
         });
-        databaseReference.child("FUT").setValue(num);
+       // databaseReference.child("FUT").setValue(num);
+      //  databaseReference.child("ubicacion").setValue(ubicacion);
+//        Ubicacion ubicacion = new Ubicacion("Posicion Inicial","Posicion Final");
         databaseReference.child("Posicion Inicial").setValue(mPosicionIni);
         databaseReference.child("Posicion Final").setValue(mPosicionfin);
         databaseReference.push();
@@ -246,6 +247,9 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
 
     }
 
+
+
+
     public String getUbicacion() {
         return ubicacion;
     }
@@ -254,6 +258,21 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         this.ubicacion = ubicacion;
     }
 
+    public RequestQueue getmPosicionF() {
+        return mPosicionF;
+    }
+
+    public void setmPosicionF(RequestQueue mPosicionF) {
+        this.mPosicionF = mPosicionF;
+    }
+
+    public RequestQueue getmPosicion() {
+        return mPosicion;
+    }
+
+    public void setmPosicion(RequestQueue mPosicion) {
+        this.mPosicion = mPosicion;
+    }
 
     public String getDireccion() {
         return direccion;
@@ -303,7 +322,7 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
     private void jsonParse() {
         //   String url = "http://192.168.43.109/gpio/1";
         // String url = "http://192.168.0.17/gpio/1";
-        String url = "http://api.myjson.com/bins/p498q";
+        String url = "https://api.myjson.com/bins/113ufm";
 
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
@@ -338,7 +357,7 @@ public class GPSActivity extends AppCompatActivity implements View.OnClickListen
         //  String url = "http://192.168.43.109/gpio/1";
         //   String  url= "https://api.myjson.com/bins/ib6pm";
         //   String url = "http://192.168.0.17/gpio/1";
-        String url = "https://api.myjson.com/bins/d6tfy";
+        String url = "https://api.myjson.com/bins/g9o9e";
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
                 new com.android.volley.Response.Listener<JSONObject>() {
                     @Override

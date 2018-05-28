@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <string name="app_name">EGPS</string>
     <string name="title_activity_maps">Map</string>
     <string name="ingresar">INGRESAR</string>
@@ -29,5 +29,12 @@
     <string name="error_valor_mayor_a_6">Contraseña minimo de 6 digitos</string>
     <string name="error_valor_entre_0_y_99">Error edad entre 0 y 99 años</string>
     <string name="contrasenas_no_coinciden">Contraseñas no coinciden</string>
+    <string name="olvidaste_tu_contrase_a">Olvidaste tu contraseña?</string>
+    <string name="todo">TODO</string>
+    <string name="mis_rutas">MIS RUTAS</string>
+    <string name="textview1">textview1</string>
+    <string name="textview2">textview2</string>
+    <string name="mostrar_rutas">Mostrar rutas</string>
+
 
 </resources>

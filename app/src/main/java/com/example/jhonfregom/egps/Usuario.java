@@ -9,13 +9,13 @@ public class Usuario {
     private String password2;
     private String age;
     private String gender;
-    private String latitud;
-    private String longitud;
+    private String mPosicionIni;
+    private String mPosisicionFin;
 
-    public Usuario(String emailU, String passwordU, String password2U, String usernameU, String nameU, String lastnameU, String ageU, String genderuU) {
+    public Usuario() {
     }
 
-    public Usuario(String username, String name, String lastname, String email, String password, String password2, String age, String gender, String latitud, String longitud) {
+    public Usuario(String username, String name, String lastname, String email, String password, String password2, String age, String gender, String mPosicionIni, String mPosisicionFin) {
         this.username = username;
         this.name = name;
         this.lastname = lastname;
@@ -24,8 +24,9 @@ public class Usuario {
         this.password2 = password2;
         this.age = age;
         this.gender = gender;
-        this.latitud = latitud;
-        this.longitud = longitud;
+        this.mPosicionIni = mPosicionIni;
+        this.mPosisicionFin = mPosisicionFin;
+
     }
 
     public String getUsername() {
@@ -92,19 +93,19 @@ public class Usuario {
         this.gender = gender;
     }
 
-    public String getLatitud() {
-        return latitud;
+    public String getmPosicionIni() {
+        return mPosicionIni;
     }
 
-    public void setLatitud(String latitud) {
-        this.latitud = latitud;
+    public void setmPosicionIni(String mPosicionIni) {
+        this.mPosicionIni = mPosicionIni;
     }
 
-    public String getLongitud() {
-        return longitud;
+    public String getmPosisicionFin() {
+        return mPosisicionFin;
     }
 
-    public void setLongitud(String longitud) {
-        this.longitud = longitud;
+    public void setmPosisicionFin(String mPosisicionFin) {
+        this.mPosisicionFin = mPosisicionFin;
     }
 }

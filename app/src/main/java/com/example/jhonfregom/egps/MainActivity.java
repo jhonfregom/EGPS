@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             progressDialog.dismiss();
                             if (task.isSuccessful()) {
-                                Toast.makeText(MainActivity.this, "Iingreso Satisfactorio", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(MainActivity.this, "Ingreso Satisfactorio", Toast.LENGTH_SHORT).show();
                             } else
                                 Toast.makeText(MainActivity.this, task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                         }

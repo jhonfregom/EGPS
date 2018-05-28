@@ -53,7 +53,8 @@
         <activity android:name=".GPSActivity" />
         <activity android:name=".MapsActivity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".PasswordActivity"></activity>
+        <activity android:name=".PasswordActivity" />
+        <activity android:name=".MostrarRutas"></activity>
     </application>
 
 </manifest>

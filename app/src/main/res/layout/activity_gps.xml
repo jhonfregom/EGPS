@@ -5,13 +5,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@drawable/gps"
     tools:context="com.example.jhonfregom.egps.GPSActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        >
 
         <Button
             android:id="@+id/logout"
@@ -62,22 +62,38 @@
         android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:hint="@string/ubicacion_inicial"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/common_google_signin_btn_text_dark_default"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
     <TextView
         android:id="@+id/txtubicacion3"
         android:layout_width="189dp"
         android:layout_height="wrap_content"
         android:hint="@string/ubicacion_final"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColorHint="@color/common_google_signin_btn_text_dark_default" />
 
-    <Button
-        android:id="@+id/guardar"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="30dp"
-        android:background="@color/colorPrimaryDark"
-        android:text="@string/guardar" />
+        android:layout_height="65dp">
 
+        <Button
+            android:id="@+id/guardar"
+            android:layout_width="190dp"
+            android:layout_height="30dp"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/guardar" />
+
+        <Button
+            android:id="@+id/btnRutas"
+            android:layout_width="190dp"
+            android:layout_height="31dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark"
+            android:text="@string/mostrar_rutas" />
+    </RelativeLayout>
     <TextView
         android:id="@+id/textView2"
         android:layout_width="match_parent"

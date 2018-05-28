@@ -40,6 +40,7 @@ dependencies {
     //Tests
 //    implementation files('libs/gson-2.3.1.jar')
 
+    implementation 'com.android.support:recyclerview-v7:26.1.0'
 }
 
 apply plugin: 'com.google.gms.google-services'

@@ -145,12 +145,6 @@ public class Main2Activity extends AppCompatActivity {
             TextPassword.requestFocus();
             return;
         }
-            else if(!password2U.equals(TextPassWord2.getText().toString())!=passwordU.equals(TextPassword.getText().toString())){
-                TextPassWord2.setError(getString(R.string.contrasenas_no_coinciden));
-                TextPassWord2.requestFocus();
-                return;
-            }
-
         int edad = Integer.parseInt(ageU);
         if(edad<1 || edad>99){
             TextAge.setError(getString(R.string.error_valor_entre_0_y_99));
@@ -171,7 +165,10 @@ public class Main2Activity extends AppCompatActivity {
                 final String lastnameU = TextLastName.getText().toString().trim();
                 final String genderuU = gender.getText().toString();
                 final String ageU = TextAge.getText().toString().trim();
-    //            final String password2U = TextPassWord2.getText().toString().trim();
+                final String password2U = TextPassWord2.getText().toString().trim();
+
+
+            if(password2U.equals(TextPassword.getText().toString())) {
 
                 if (!TextUtils.isEmpty(emailU) && !TextUtils.isEmpty(passwordU)) {
                     mProgress.setMessage("REGISTRANDO USUARIO, POR FAVOR ESPERA...");
@@ -193,15 +190,15 @@ public class Main2Activity extends AppCompatActivity {
                                         databaseReference.child("lastname").setValue(lastnameU);
                                         databaseReference.child("age").setValue(ageU);
                                         databaseReference.child("gender").setValue(genderuU);
-                        //                databaseReference.child("password2").setValue(password2U);
+                                        //                databaseReference.child("password2").setValue(password2U);
 
-                           //         if (passwordU.equals(TextPassword.getText().toString()&&password2U.equals(TextPassWord2.getText().toString()))){
+                                        //         if (passwordU.equals(TextPassword.getText().toString()&&password2U.equals(TextPassWord2.getText().toString()))){
 
-                             //       }
+                                        //       }
 
-                                            Toast.makeText(getApplicationContext(), "USUARIO REGISTRADO", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(getApplicationContext(), "USUARIO REGISTRADO", Toast.LENGTH_SHORT).show();
                                     } else
-                                        Toast.makeText(Main2Activity.this, "ERROR AL REGISTRA USUARIO, MAYOR A 6 DIGITOS", Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(Main2Activity.this, "CONTRASEÑAS NO COINCIDEN", Toast.LENGTH_SHORT).show();
 
                                 }
 
@@ -219,5 +216,8 @@ public class Main2Activity extends AppCompatActivity {
 
 
                 }
-            }
+            }else
+                Toast.makeText(Main2Activity.this, "CONTRASEÑAS NO COINCIDEN", Toast.LENGTH_SHORT).show();
+
+        }
         }
